@@ -1,0 +1,23 @@
+modanalys.settings:
+  path: '/admin/config/system/modanalys'
+  defaults:
+    _form: '\Drupal\modanalys\Form\Settings'
+    _title: 'Modanalys settings'
+  requirements:
+    _permission: 'administer modanalys'
+
+modanalys.index:
+  path: '/modanalys'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Modanalys'
+  requirements:
+    _permission: 'access modanalys'
+
+modanalys.pop_pages:
+  path: '/modanalys/poppages'
+  defaults:
+    _controller: '\Drupal\modanalys\Controller\PopPages::display'
+    _title: 'Популярные страницы'
+  requirements:
+    _permission: 'access modanalys'

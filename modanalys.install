@@ -1,0 +1,84 @@
+<?php
+
+/* vim: set filetype=php: */
+
+/**
+ * @file
+ * Install/uninstall visitors module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function poppages_install() {
+  \Drupal::configFactory()->getEditable('poppages.config')
+    ->set('chart_height', 430)
+    ->set('chart_width', 700)
+    ->set('exclude_administer_users', 0)
+    ->set('items_per_page', 10)
+    ->set('show_pop_pages', 1)
+    ->set('start_count_total_visitors', 0)
+    ->save();
+}
+
+/**
+ * Uninstall the module with database table and module settings.
+ */
+function poppages_uninstall() {
+  drupal_uninstall_schema('poppages');
+
+  \Drupal::configFactory()->getEditable('poppages.config')->delete();
+}
+
+/**
+ * Implementats of hook_schema().
+ */
+function poppages_schema() {
+  $schema['poppages'] = array(
+    'fields' => array(
+      'poppages_id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'poppages_uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'poppages_ip' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'poppages_url' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'poppages_referer' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'poppages_path' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'poppages_title' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'poppages_user_agent' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('poppages_id'),
+  );
+
+  return $schema;
+}
+
