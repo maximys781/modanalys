@@ -48,6 +48,7 @@ class KernelTerminateSubscriber implements EventSubscriberInterface {
             $fields = array(//создаем массив и описываем перменные к ним, как и указатели на функции
                 'poppages_uid'        => $user->id(),
                 'poppages_ip'         => $ip_str,
+                'poppages_tables'     => time(),
                 'poppages_url'        => $this->_getUrl(),
                 'poppages_referer'    => $this->_getReferer(),
                 'poppages_path'       => Url::fromRoute('<current>')->toString(),

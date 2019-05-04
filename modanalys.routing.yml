@@ -4,7 +4,7 @@ modanalys.settings:
     _form: '\Drupal\modanalys\Form\Settings'
     _title: 'Modanalys settings'
   requirements:
-    _permission: 'administer modanalys'
+    _permission: 'administer admin'
 
 modanalys.index:
   path: '/modanalys'
@@ -12,7 +12,7 @@ modanalys.index:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'Modanalys'
   requirements:
-    _permission: 'access modanalys'
+    _permission: 'access admin'
 
 modanalys.pop_pages:
   path: '/modanalys/poppages'
@@ -20,4 +20,4 @@ modanalys.pop_pages:
     _controller: '\Drupal\modanalys\Controller\PopPages::display'
     _title: 'Популярные страницы'
   requirements:
-    _permission: 'access modanalys'
+    _permission: 'access admin'

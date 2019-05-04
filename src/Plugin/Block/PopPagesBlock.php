@@ -52,6 +52,20 @@ class PopPagesBlock extends BlockBase {
             );
         }
     }
+    protected function _showPublishedNodes() {
+        if ($this->config->get('show_published_nodes')) {
+            $query = db_select('node', 'n');
+            $query->innerJoin('node_field_data', 'nfd', 'n.nid = nfd.nid');
+            $query->addExpression('COUNT(*)');
+            $query->condition('nfd.status', '1', '=');
+
+            $nodes = $query->execute()->fetchField();
+
+            $this->items[] = t('Published Nodes: %nodes',
+                array('%nodes' => $nodes)
+            );
+        }
+    }
 
 }
 

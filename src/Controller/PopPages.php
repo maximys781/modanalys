@@ -9,34 +9,37 @@
 namespace Drupal\modanalys\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\Date;
+use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Utility\SafeMarkup;
 
 class PopPages extends ControllerBase
 {
-    /**
-     * The date service.
-     *
-     * @var \Drupal\Core\Datetime\DateFormatterInterface
-     */
+    protected $date;
+    protected $formBuilder;
 
-    /**
-     * The form builder service.
-     *
-     * @var \Drupal\Core\Form\FormBuilderInterface
-     */
+    public static function create(ContainerInterface $container){
+        return new static(
+            $container->get('date.formatter'),
+            $container->get('form_builder')//создаем функцию, которая будет строить нам форму при запросе к БД
+        );
+    }
 
-    /**
-     * Returns a top pages page.
-     *
-     * @return array
-     *   A render array representing the top pages page content.
-     */
+public function __construct(DateFormatterInterface $date_formatter,FormBuilderInterface $form_builder)
+{
+    $this->date=$date_formatter;
+    $this->formBuilder=$form_builder;//создаем указатель на переменную
+}
+
     public function display()
     {
+        $form = $this->formBuilder->getForm('Drupal\modanalys\Form\DateFilter');
         $header = $this->_getHeader();//создаем тему в которой указываем тип формы, заголовки в шапке и то откуда будем брать данные в таблице
 
         return array(
+            'poppages_tables_form' => $form,
             'poppages_table' => array(
                 '#type' => 'table',
                 '#header' => $header,
@@ -45,13 +48,6 @@ class PopPages extends ControllerBase
             'poppages_pager' => array('#type' => 'pager')
         );
     }
-
-    /**
-     * Returns a table header configuration.
-     *
-     * @return array
-     *   A render array representing the table header info.
-     */
     protected function _getHeader()//создаем функцию в которой указываем заголовки таблицы
     {
         return array(
@@ -98,11 +94,14 @@ class PopPages extends ControllerBase
         $query->groupBy('poppages_path');//группируем массив
         $query->orderByHeader($header);//вставляем сортировку в шапку
         $query->limit($items_per_page);//выбор по страницам
-
+        poppages_tables_sql_condition($query);
         $count_query = db_select('poppages', 'p');
         $count_query->addExpression('COUNT(DISTINCT poppages_path)');//отсутствие совпадения ссылок
+        poppages_tables_sql_condition($count_query);
         $query->setCountQuery($count_query);//счетчик подключений
+
         $results = $query->execute();//делаем выборку
+
 
         $rows = array();
 
