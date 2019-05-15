@@ -2,12 +2,13 @@
 
 namespace Drupal\modanalys\Form;
 
-use Drupal\modanalys\Form\DateFilter;
+use Drupal\modanalys\src\Form\DateFilter;
+
 
 class Referers extends DateFilter{
 
     public function getFormID() {
-        return 'poppages_referers_form';
+        return 'modanalys_referers_form';
     }
 
     public function buildForm(array $form, array &$form_state) {
@@ -24,7 +25,7 @@ class Referers extends DateFilter{
             '#description'   => t('Choose referers type')
         );
 
-        $form['poppages_referer']['referer_type'] = array(
+        $form['modanalys_referer']['referer_type'] = array(
             '#type' => 'select',
             '#title' => 'Referer type',
             '#default_value' => $_SESSION['referer_type'],
@@ -49,9 +50,7 @@ class Referers extends DateFilter{
         $_SESSION['referer_type'] = $form_state['values']['referer_type'];
     }
 
-    /**
-     * Set to session info default values for visitors referer type.
-     */
+
     protected function _setSessionRefererType() {
         if (!isset($_SESSION['referer_type'])) {
             $_SESSION['referer_type'] = REFERER_TYPE_EXTERNAL_PAGES;

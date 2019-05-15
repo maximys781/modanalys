@@ -11,11 +11,11 @@ use Drupal\Core\Url;
 
 class Settings extends ConfigFormBase {
     public function getFormID() {
-        return 'poppages_admin_settings';
+        return 'modanalys_admin_settings';
     }
 
     public function buildForm(array $form, FormStateInterface $form_state) {
-        $config = \Drupal::config('poppages.config');
+        $config = \Drupal::config('modanalys.config');
         $form = array();
 
         $form['settings'] = array(
@@ -27,15 +27,15 @@ class Settings extends ConfigFormBase {
             '#description' => t('Популярные страницы позволяют бла бла бла')
         );
 
-        $form['settings']['show_pop_pages'] = array(
+        $form['settings']['show_modanalys'] = array(
             '#type' => 'table',
             '#title' => t('poppages'),
-            '#default_value' => $config->get('show_pop_pages'),
+            '#default_value' => $config->get('show_modanalys'),
             '#description' => t('Show Pop Pages.')
         );
 
 
-        return parent::buildForm($form, $form_state);;
+        return parent::buildForm($form, $form_state);
     }
 
 

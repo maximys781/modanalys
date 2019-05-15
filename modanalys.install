@@ -1,6 +1,5 @@
 <?php
 
-/* vim: set filetype=php: */
 
 /**
  * @file
@@ -10,30 +9,28 @@
 /**
  * Implements hook_install().
  */
-function poppages_install() {
-  \Drupal::configFactory()->getEditable('poppages.config')
+
+function modanalys_install() {
+  \Drupal::configFactory()->getEditable('modanalys.config')
     ->set('chart_height', 430)
     ->set('chart_width', 700)
     ->set('exclude_administer_users', 0)
+     ->set('flush_log_timer', 0)
+     ->set('show_published_nodes', 1)
     ->set('items_per_page', 10)
     ->set('show_pop_pages', 1)
-    ->set('start_count_total_visitors', 0)
+     ->set('show_since_date', 1)
+    ->set('start_count_total_poppages', 0)
+
     ->save();
 }
 
 /**
  * Uninstall the module with database table and module settings.
  */
-function poppages_uninstall() {
-  drupal_uninstall_schema('poppages');
 
-  \Drupal::configFactory()->getEditable('poppages.config')->delete();
-}
 
-/**
- * Implementats of hook_schema().
- */
-function poppages_schema() {
+function modanalys_schema() {
   $schema['poppages'] = array(
     'fields' => array(
       'poppages_id' => array(
@@ -51,14 +48,19 @@ function poppages_schema() {
         'not null' => TRUE,
         'default' => '',
       ),
+      'modanalys_date_time' => array(
+         'type' => 'int',
+         'not null' => TRUE,
+         'default' => 0,
+       ),
       'poppages_url' => array(
         'type' => 'text',
         'not null' => TRUE,
       ),
       'poppages_referer' => array(
-        'type' => 'text',
-        'not null' => TRUE,
-      ),
+         'type' => 'text',
+          'not null' => TRUE,
+       ),
       'poppages_path' => array(
         'type' => 'varchar',
         'length' => 255,

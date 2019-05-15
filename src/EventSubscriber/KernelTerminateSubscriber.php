@@ -41,14 +41,15 @@ class KernelTerminateSubscriber implements EventSubscriberInterface {
 
         $user = \Drupal::currentUser();//получаем информацию о текущем пользователе
         $not_admin = !in_array('administrator', $user->getRoles());//если он не администратор, то говорим о том что нужно получить права для доступа
-        $log_admin = !\Drupal::config('poppages.config')->get('exclude_administer_users');//если администратор, то подругжаем наш конфиг.
+        $log_admin = !\Drupal::config('modanalys.config')->get('exclude_administer_users');//если администратор, то подругжаем наш конфиг.
 
         if ($log_admin || $not_admin) {
             $ip_str = $this->_getIpStr();
-            $fields = array(//создаем массив и описываем перменные к ним, как и указатели на функции
+            $fields = array(
+                //создаем массив и описываем перменные к ним, как и указатели на функции
                 'poppages_uid'        => $user->id(),
                 'poppages_ip'         => $ip_str,
-                'poppages_tables'     => time(),
+                'modanalys_date_time'     => time(),
                 'poppages_url'        => $this->_getUrl(),
                 'poppages_referer'    => $this->_getReferer(),
                 'poppages_path'       => Url::fromRoute('<current>')->toString(),
