@@ -1,0 +1,12 @@
+name:  "Модуль анализа"
+description: "Этот модуль используют для отображения данных о посетителях."
+package: "modanalys"
+# core: "8.x"
+type: module
+configure: modanalys.admin
+
+# Information added by Drupal.org packaging script on 2019-04-10
+version: '8.x-2.1'
+core: '8.x'
+project: 'modanalys'
+datestamp: 1554935456

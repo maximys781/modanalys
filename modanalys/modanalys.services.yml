@@ -1,0 +1,5 @@
+services:
+  modanalys.terminate:
+    class: Drupal\modanalys\EventSubscriber\KernelTerminateSubscriber
+    tags:
+      - { name: event_subscriber }

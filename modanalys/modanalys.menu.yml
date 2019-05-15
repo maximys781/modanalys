@@ -1,0 +1,16 @@
+modanalys.settings:
+  title: Visitors settings
+  route_name: modanalys.settings
+  parent: system.admin_config_system
+  description: 'Configure visitors settings.'
+
+modanalys.index:
+  title: 'PopPages'
+  route_name: modanalys.index
+  menu_name: tools
+
+modanalys.pop_pages:
+  title: 'Популярные страницы'
+  route_name: modanalys.pop_pages
+  parent: modanalys.index
+  description: 'Страницы пользующиеся спросом.'
