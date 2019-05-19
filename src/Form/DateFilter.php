@@ -17,23 +17,23 @@ class DateFilter extends FormBase {
 
 
     public function getFormID(){
-        return 'poppages_tables_form';
+        return 'modanalys_date_time_form';
     }
 
     /**
      * Set to session info default values for visitors date filter.
      */
     protected function _setSessionDateRange() {
-        if (!isset($_SESSION['poppages_from'])) {
-            $_SESSION['poppages_from'] = array(
+        if (!isset($_SESSION['modanalys_from'])) {
+            $_SESSION['modanalys_from'] = array(
                 'month' => date('n'),
                 'day' => 1,
                 'year' => date('Y'),
             );
         }
-        if (!isset($_SESSION['poppages_to']))
+        if (!isset($_SESSION['modanalys_to']))
         {
-            $_SESSION['poppages_to'] = array(
+            $_SESSION['modanalys_to'] = array(
                 'month' => date('n'),
                 'day'   => date('j'),
                 'year'  => date('Y'),
@@ -43,18 +43,18 @@ class DateFilter extends FormBase {
 
     public function buildForm(array $form,FormStateInterface $form_state){
         $this->_setSessionDateRange();
-        $from = DrupalDateTime::createFromArray($_SESSION['poppages_from']);
-        $to   = DrupalDateTime::createFromArray($_SESSION['poppages_to']);
+        $from = DrupalDateTime::createFromArray($_SESSION['modanalys_from']);
+        $to   = DrupalDateTime::createFromArray($_SESSION['modanalys_to']);
         $form = array();
 
-        $form['poppages_tables'] = array(
+        $form['modanalys_date_time'] = array(
             '#collapsed'        => FALSE,
             '#collapsible'      => FALSE,
             '#description'      => t('Выберите диапазон дат'),
             '#title'            => t('Фильтр даты'),
             '#type'             => 'fieldset',
         );
-        $form['poppages_tables']['from'] = array(
+        $form['modanalys_date_time']['from'] = array(
             '#date_part_order'  => $this->_getOrder(),
             '#date_timezone'    => drupal_get_user_timezone(),
             '#default_value'    => $from,
@@ -64,7 +64,7 @@ class DateFilter extends FormBase {
             '#type'             => 'datelist',
             '#value_callback'   => array($this, 'datelistValueCallback'),
         );
-        $form['poppages_tables']['to'] = array(
+        $form['modanalys_date_time']['to'] = array(
             '#date_part_order'  => $this->_getOrder(),
             '#date_timezone'    => drupal_get_user_timezone(),
             '#default_value'    => $to,
@@ -84,14 +84,16 @@ class DateFilter extends FormBase {
     }
 
     public function validateForm(array &$form, FormStateInterface $form_state) {
-        $fromvalue = $form_state->getValue('from');
+      $fromvalue = $form_state->getValue('from');
+      $tovalue = $form_state->getValue('to');
         $from = array();
+      $to = array();
         $from['month'] = (int) $fromvalue->format('m');
         $from['day']   = (int) $fromvalue->format('d');
         $from['year']  = (int) $fromvalue->format('y');
 
-        $tovalue = $form_state->getValue('to');
-        $to = array();
+
+
         $to['month']   = (int) $tovalue->format('m');
         $to['day']     = (int) $tovalue->format('d');
         $to['year']    = (int) $tovalue->format('y');
@@ -126,13 +128,13 @@ class DateFilter extends FormBase {
         $from = $form_state->getValue('from');
         $to   = $form_state->getValue('to');
 
-        $_SESSION['poppages_from'] = array(
+        $_SESSION['modanalys_from'] = array(
             'month' => $from->format('n'),
             'day'   => $from->format('j'),
             'year'  => $from->format('Y'),
         );
 
-        $_SESSION['poppages_to'] = array(
+        $_SESSION['modanalys_to'] = array(
             'month' => $to->format('n'),
             'day'   => $to->format('j'),
             'year'  => $to->format('Y'),
@@ -208,17 +210,17 @@ class DateFilter extends FormBase {
             switch ($part) {
                 case 'month':
                     $options = DateHelper::monthNamesAbbr(TRUE);
-                    $title = t('Месяц');
+                    $title = t('Month');
                     break;
 
                 case 'day':
                     $options = DateHelper::days(TRUE);
-                    $title = t('День');
+                    $title = t('Day');
                     break;
 
                 case 'year':
                     $options = DateHelper::years($this->_getMinYear(), date('Y'), TRUE);
-                    $title = t('Год');
+                    $title = t('Year');
                     break;
             }
 
@@ -246,7 +248,7 @@ class DateFilter extends FormBase {
      */
     protected function _getMinYear() {
         $query = db_select('poppages');
-        $query->addExpression('MIN(poppages_tables)');
+        $query->addExpression('MIN(modanalys_date_time)');
         $min_timestamp = $query->execute()->fetchField();
 
         $timezone = drupal_get_user_timezone();

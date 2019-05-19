@@ -10,14 +10,30 @@ modanalys.index:
   path: '/modanalys'
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Modanalys'
+    _title: 'modanalys'
   requirements:
-    _permission: 'access admin'
+    _permission: 'access modanalys'
 
 modanalys.pop_pages:
   path: '/modanalys/poppages'
   defaults:
-    _controller: '\Drupal\modanalys\Controller\PopPages::display'
+    _controller: '\Drupal\modanalys\Controller\Report\PopPages::display'
     _title: 'Популярные страницы'
   requirements:
-    _permission: 'access admin'
+    _permission: 'access modanalys'
+
+modanalys.user_devices:
+  path: '/modanalys/userdevices'
+  defaults:
+    _controller: '\Drupal\modanalys\Controller\Report\UserDevices::display'
+    _title: 'Пользователи'
+  requirements:
+    _permission: 'access modanalys'
+
+modanalys.hit_details:
+  path: '/modanalys/userdevices/{devperson_id}'
+  defaults:
+    _controller: '\Drupal\modanalys\Controller\Report\DevicesDetails::display'
+    _title: 'Устройства пользователей'
+  requirements:
+    _permission: 'access modanalys'    
