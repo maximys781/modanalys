@@ -25,6 +25,14 @@ class Referers extends DateFilter{
             '#description'   => t('Choose referers type')
         );
 
+        $form['devperson_referer'] = array(
+            '#type'          => 'fieldset',
+            '#title'         => t('Referers type filter'),
+            '#collapsible'   => FALSE,
+            '#collapsed'     => FALSE,
+            '#description'   => t('Choose referers type')
+        );
+
         $form['modanalys_referer']['referer_type'] = array(
             '#type' => 'select',
             '#title' => 'Referer type',

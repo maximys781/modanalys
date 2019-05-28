@@ -56,11 +56,26 @@ class KernelTerminateSubscriber implements EventSubscriberInterface {
                 'poppages_title'      => $this->_getTitle(),
                 'poppages_user_agent' => $this->_getUserAgent()
             );
+            $fields1 = array(
+                'devperson_uid'        => $user->id(),
+                'devperson_ip'         => $ip_str,
+                'modanalys_date_time'     => time(),
+                'devperson_url'        => $this->_getUrl(),
+                'devperson_referer'    => $this->_getReferer(),
+                'devperson_path'       => Url::fromRoute('<current>')->toString(),
+                'devperson_title'      => $this->_getTitle(),
+                'devperson_user_agent' => $this->_getUserAgent()
+
+            );
 
 
 
             db_insert('poppages')
                 ->fields($fields)
+                ->execute();
+
+                db_insert('devices')
+                ->fields($fields1)
                 ->execute();
         }
     }
@@ -118,7 +133,7 @@ class KernelTerminateSubscriber implements EventSubscriberInterface {
      * @return string
      */
     protected function _getIpStr() {
-        return sprintf("%u", ip2long($this->request->getClientIp()));
+        return sprintf("%u", ip2long($this->request->getClientIp()));//получаем IP адрес типа IPv4
     }
 
     /**

@@ -14,3 +14,9 @@ modanalys.pop_pages:
   route_name: modanalys.pop_pages
   parent: modanalys.index
   description: 'Страницы пользующиеся спросом.'
+
+modanalys.user_devices:
+  title: 'Устройства пользователей'
+  route_name: modanalys.user_devices
+  parent: modanalys.index
+  description: 'Устройства с которых заходят пользователи'

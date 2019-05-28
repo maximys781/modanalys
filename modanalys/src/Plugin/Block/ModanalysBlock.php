@@ -24,6 +24,7 @@ class ModanalysBlock extends BlockBase {
         $this->_showPopPages();
         $this->_showPublishedNodes();
         $this->_showSinceDate();
+        $this->_showUserIp();
 
         return array(
             'modanalys_info' => array(
@@ -73,6 +74,13 @@ class ModanalysBlock extends BlockBase {
             );
         }
     }
+    protected function _showUserIp(){
+        if ($this->config->get('show_user_ip')){
+            $this->items[]= t('Твой IP: %user_ip',
+                array('%user_ip' => \Drupal::request()->getClientIp())//мы вызываем эту функцию из Symfony HttpFoundation, которая  позволяет определить IP адрес клиента.
+            );
+    }
+}
 
 }
 

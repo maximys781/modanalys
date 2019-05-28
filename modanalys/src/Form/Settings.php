@@ -24,7 +24,7 @@ class Settings extends ConfigFormBase {
             '#title' => t('Популярные страницы'),
             '#collapsible' => TRUE,
             '#collapsed' => FALSE,
-            '#description' => t('Популярные страницы позволяют бла бла бла')
+            '#description' => t('Популярные страницы, которые вызывают наибольший интерес у пользователей')
         );
 
         $form['settings']['show_modanalys'] = array(
@@ -32,6 +32,22 @@ class Settings extends ConfigFormBase {
             '#title' => t('poppages'),
             '#default_value' => $config->get('show_modanalys'),
             '#description' => t('Show Pop Pages.')
+        );
+
+        $form['settings'] = array(
+            '#type' => 'fieldset',
+            '#weight' => -30,
+            '#title' => t('Устройства пользователей'),
+            '#collapsible' => TRUE,
+            '#collapsed' => FALSE,
+            '#description' => t('Устройства с которых пользователи заходят на сайта ')
+        );
+
+        $form['settings']['show_modanalys'] = array(
+            '#type' => 'table',
+            '#title' => t('devices'),
+            '#default_value' => $config->get('show_modanalys'),
+            '#description' => t('Show Devices Person.')
         );
 
 
