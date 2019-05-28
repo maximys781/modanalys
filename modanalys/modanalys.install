@@ -20,6 +20,7 @@ function modanalys_install() {
     ->set('items_per_page', 10)
     ->set('show_pop_pages', 1)
      ->set('show_since_date', 1)
+     ->set('show_user_ip', 1)
     ->set('start_count_total_poppages', 0)
 
     ->save();
@@ -80,7 +81,59 @@ function modanalys_schema() {
     ),
     'primary key' => array('poppages_id'),
   );
-
   return $schema;
+}
+function modanalys_schema1() {
+  $schema1['devices'] = array(
+    'fields' => array(
+      'devperson_id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'devperson_uid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'devperson_ip' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'modanalys_date_time' => array(
+         'type' => 'int',
+         'not null' => TRUE,
+         'default' => 0,
+       ),
+      'devperson_url' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+      'devperson_referer' => array(
+         'type' => 'text',
+          'not null' => TRUE,
+       ),
+      'devperson_path' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'devperson_title' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'devperson_user_agent' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('devperson_id'),
+  );
+
+  return $schema1;
 }
 
