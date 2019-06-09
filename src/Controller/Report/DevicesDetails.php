@@ -31,7 +31,7 @@ class DevicesDetails extends ControllerBase {
    * @return array
    *   A render array representing the hit details page content.
    */
-  public function display($devperson_id) {
+  public function display($dev_id) {
     return array(
       'modanalys_table' => array(
         '#type' => 'table',
@@ -49,18 +49,18 @@ class DevicesDetails extends ControllerBase {
    * @return array
    *   Array representing the table content.
    */
-  protected function _getData($hit_id) {
+  protected function _getData($dev_id) {
     $query = db_select('devices', 'd');
     $query->leftJoin('users_field_data', 'u', 'u.uid=d.devperson_uid');
     $query->fields('d');
     $query->fields('u', array('name', 'uid'));
-    $query->condition('d.devperson_id', (int) $devperson_id);
+    $query->condition('d.devperson_id', (int) $dev_id);
     $hit_details = $query->execute()->fetch();
 
     $rows = array();
 
     if ($hit_details) {
-      $url          = urldecode($hit_details->deperson_url);
+      $url          = urldecode($hit_details->devperson_url);
       $referer      = $hit_details->devperson_referer;
       $date         = $this->date->format($hit_details->modanalys_date_time, 'large');
       $whois_enable = \Drupal::service('module_handler')->moduleExists('whois');
@@ -68,7 +68,7 @@ class DevicesDetails extends ControllerBase {
       $attr         = array(
         'attributes' => array(
           'target' => '_blank',
-          'title'  => t('Whois lookup')
+          'title'  => t('Информация об пользователе')
         )
       );
       $ip = long2ip($hit_details->devperson_ip);
