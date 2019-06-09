@@ -24,7 +24,7 @@ class ModanalysBlock extends BlockBase {
         $this->_showPopPages();
         $this->_showPublishedNodes();
         $this->_showSinceDate();
-        $this->-showUserIp();
+        $this->_showUserIp();
 
         return array(
             'modanalys_info' => array(

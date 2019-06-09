@@ -35,7 +35,7 @@ class DevicesDetails extends ControllerBase {
     return array(
       'modanalys_table' => array(
         '#type' => 'table',
-        '#rows'  => $this->_getData($devperson_id),
+        '#rows'  => $this->_getData($dev_id),
       ),
     );
   }
@@ -50,7 +50,7 @@ class DevicesDetails extends ControllerBase {
    *   Array representing the table content.
    */
   protected function _getData($hit_id) {
-    $query = db_select('devperson', 'd');
+    $query = db_select('devices', 'd');
     $query->leftJoin('users_field_data', 'u', 'u.uid=d.devperson_uid');
     $query->fields('d');
     $query->fields('u', array('name', 'uid'));
@@ -77,7 +77,7 @@ class DevicesDetails extends ControllerBase {
       $array = array(
         'User'       => $user->getAccountName(),
         'IP'         => $whois_enable ? \Drupal::l($ip, 'whois/' . $ip, $attr) : $ip,
-        'User Agent' => SafeMarkup::checkPlain($hit_details->visitors_user_agent)
+        'User Agent' => SafeMarkup::checkPlain($hit_details->devperson_user_agent)
       );
 
       /*if (\Drupal::service('module_handler')->moduleExists('visitors_geoip')) {

@@ -81,8 +81,10 @@ function modanalys_schema() {
     ),
     'primary key' => array('poppages_id'),
   );
-
-  $schema['devices'] = array(
+  return $schema;
+}
+function modanalys_schema1() {
+  $schema1['devices'] = array(
     'fields' => array(
       'devperson_id' => array(
         'type' => 'serial',
@@ -132,6 +134,6 @@ function modanalys_schema() {
     'primary key' => array('devperson_id'),
   );
 
-  return $schema;
+  return $schema1;
 }
 
