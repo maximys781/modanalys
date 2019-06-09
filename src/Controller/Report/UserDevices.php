@@ -66,10 +66,10 @@ class UserDevices extends ControllerBase {
         'specifier' => 'modanalys_date_time',
         'class'     => array(RESPONSIVE_PRIORITY_LOW),
       ),
-      'devperson_ip' => array(
-        'data'      => t('IP'),
-        'field'     => 'devperson_ip',
-        'specifier' => 'devperson_ip',
+       'devperson_url' => array(
+        'data'      => t('URL'),
+        'field'     => 'devperson_url',
+        'specifier' => 'devperson',
         'class'     => array(RESPONSIVE_PRIORITY_LOW),
       ),
       'u.name' => array(
