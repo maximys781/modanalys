@@ -24,6 +24,7 @@ function poppages_cron() {
     if ($flush_log_timer > 0) {
         // Clean up expired access logs.
         db_delete('poppages')
+        //db_delete('devices')
             ->condition('modanalys_date_time', time() - $flush_log_timer, '<')
             ->execute();
     }

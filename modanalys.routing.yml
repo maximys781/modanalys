@@ -31,7 +31,7 @@ modanalys.user_devices:
     _permission: 'access modanalys'
 
 modanalys.hit_details:
-  path: '/modanalys/userdevices/{devperson_id}'
+  path: '/modanalys/userdevices/{dev_id}'
   defaults:
     _controller: '\Drupal\modanalys\Controller\Report\DevicesDetails::display'
     _title: 'Устройства пользователей'
